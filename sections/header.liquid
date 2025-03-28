@@ -17,75 +17,186 @@
 {%- endif -%}
 
 <style>
-  .header__left-icons {
-    display: flex;
-    grid-area: left-icons;
-    justify-self: start;
-    align-items: center
-  }
+        .header__icon {
+          display: flex;
+          align-items: center;
+        }
 
-  header-drawer {
-    justify-self: start;
-    margin-left: -1.2rem;
-  }
+        .header__left-icons {
+          display: flex;
+          grid-area: left-icons;
+          justify-self: start;
+          align-items: center;
+        }
 
-  {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
-    .scrolled-past-header .header__heading-logo-wrapper {
-      width: 75%;
-    }
-  {%- endif -%}
+        .icon-text {
+          display: none;
+          margin-left: 0.5rem;
+        }
 
-  {%- if section.settings.menu_type_desktop != "drawer" -%}
-    @media screen and (min-width: 990px) {
+        .icon-search {
+        margin-left: 1.5rem;
+        }
+
+        @media screen and (min-width: 990px) {
+          .icon-text {
+            display: inline-block;
+          }
+        }
+
+        header-drawer {
+          justify-self: start;
+          margin-left: -1.2rem;
+        }
+
+        {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
+          .scrolled-past-header .header__heading-logo-wrapper {
+            width: 75%;
+          }
+        {%- endif -%}
+
+        {%- if section.settings.menu_type_desktop != "drawer" -%}
+          @media screen and (min-width: 990px) {
+            header-drawer {
+              display: none;
+            }
+          }
+        {%- endif -%}
+
+        .menu-drawer-container {
+          display: flex;
+        }
+
+        .list-menu {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .list-menu--inline {
+          display: inline-flex;
+          flex-wrap: wrap;
+        }
+
+        summary.list-menu__item {
+          padding-right: 2.7rem;
+        }
+
+        .list-menu__item {
+          display: flex;
+          align-items: center;
+          line-height: calc(1 + 0.3 / var(--font-body-scale));
+        }
+
+        .list-menu__item--link {
+          text-decoration: none;
+          padding-bottom: 1rem;
+          padding-top: 1rem;
+          line-height: calc(1 + 0.8 / var(--font-body-scale));
+        }
+
+        @media screen and (min-width: 750px) {
+          .list-menu__item--link {
+            padding-bottom: 0.5rem;
+            padding-top: 0.5rem;
+          }
+        }
+
+
+
+        {% comment %} hasan {% endcomment %}
+        /* Hide "Menu" and "Search" text labels on mobile */
+    @media screen and (max-width: 989px) {
+
+      .icon-text {
+        display: none !important;
+      }
+
+      .svg-wrapper {
+        width: 16px !important;
+      }
+
+      .header__icon--cart .svg-wrapper {
+        width: 36px !important; /* Adjust this value as needed */
+      }
+
+      /* Fix the menu icon container structure */
       header-drawer {
-        display: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Make all icons have consistent dimensions */
+      .header__icon,
+      .header__icon--menu,
+      .header__icon--search {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      .menu-drawer-container {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Consistent spacing in header */
+      .header__left-icons {
+        display: flex;
+        align-items: center;
+      }
+
+      .icon-search {
+        margin-left: 0;
       }
     }
-  {%- endif -%}
 
-  .menu-drawer-container {
-    display: flex;
-  }
-
-  .list-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .list-menu--inline {
-    display: inline-flex;
-    flex-wrap: wrap;
-  }
-
-  summary.list-menu__item {
-    padding-right: 2.7rem;
-  }
-
-  .list-menu__item {
-    display: flex;
-    align-items: center;
-    line-height: calc(1 + 0.3 / var(--font-body-scale));
-  }
-
-  .list-menu__item--link {
-    text-decoration: none;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    line-height: calc(1 + 0.8 / var(--font-body-scale));
-  }
-
-  @media screen and (min-width: 750px) {
-    .list-menu__item--link {
-      padding-bottom: 0.5rem;
-      padding-top: 0.5rem;
+    /* Fix desktop spacing */
+    @media screen and (min-width: 990px) {
+      header-drawer {
+        margin-left: 0;
+      }
     }
+
+    /* Reduce all header spacing */
+  .header {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Tighten icon spacing */
+  .header__icons,
+  .header__left-icons {
+    gap: 0; /* Remove gaps between icons */
+  }
+
+  /* Make icons container smaller */
+  .header__icon,
+  .header__icon--cart,
+  .header__icon--account,
+  .header__icon--menu,
+  .header__icon--search {
+    width: 32px; /* Shrink from 36px/44px */
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Adjust logo container */
+  .header__heading-logo-wrapper {
+    margin: 0 0.5rem; /* Smaller margin around logo */
   }
 </style>
 
 {%- style -%}
   .header {
-    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 1rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 1rem;
   }
 
   .section-header {
@@ -291,7 +402,11 @@
         {%- endcase -%}
       {%- endfor -%}
 
-      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+      <a
+        href="{{ routes.cart_url }}"
+        class="header__icon header__icon--cart link focus-inset"
+        id="cart-icon-bubble"
+      >
         {% if cart == empty %}
           <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
         {% else %}
